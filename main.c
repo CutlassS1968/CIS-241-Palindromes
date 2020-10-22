@@ -22,16 +22,16 @@ int main() {
     char str[SIZE];     // User's string input
     char cpyStr[SIZE];  // Copy of user's input for display
 
-    printf("Enter a phrase!\n");
+    printf("\nEnter a palindrome: ");
     scanf("%[^\n]%*c",str);
 
     copy(cpyStr, str);
     formatString(str);
 
      if (testPalindrome(str, 0, getSize(str))) {
-         printf("\"%s\" is a palindrome!", cpyStr);
+         printf("\n\"%s\" is a palindrome!\n\n", cpyStr);
      } else {
-         printf("\"%s\" is not a palindrome.", cpyStr);
+         printf("\n\"%s\" is not a palindrome.\n\n", cpyStr);
      }
     return 0;
 }
