@@ -1,19 +1,17 @@
 //
 //  CIS 241 02, Professor Vijay Bhuse
-//   Target-Heart-Rate Calculator
+//            Palindromes
 //
-//  Created by Evan Johns on 9/13/20
+//  Created by Evan Johns on 10/18/2020
 //
 
 #include <stdio.h>
 #include <ctype.h>
 
-#define SIZE 50 // Max size of the user's input
+#define SIZE 200 // Max size of the user's input
 
 int testPalindrome(char*, int, int);
-void formatString(char *);
-void removeSpaces(char *);
-void convertToLowercase(char *);
+void format(char *);
 void copy(char *s1, const char *s2);
 size_t getSize(char *);
 
@@ -26,7 +24,7 @@ int main() {
     scanf("%[^\n]%*c",str);
 
     copy(cpyStr, str);
-    formatString(str);
+    format(str);
 
      if (testPalindrome(str, 0, getSize(str))) {
          printf("\n\"%s\" is a palindrome!\n\n", cpyStr);
@@ -55,28 +53,31 @@ int testPalindrome(char str[], int start, int end) {
     return 1;
 }
 
-// Formats a string to be in lowercase and have no spaces
-void formatString(char * str) {
-    convertToLowercase(str);
-    removeSpaces(str);
-}
+// Formats a string input to remove punctuation, spaces, and convert to lowercase
+void format(char *str) {
+    char *sta = str;   // starting string
+    char *res = str;   // resulting string
 
-// Removes all spaces in a string
-void removeSpaces(char* str) {
-    const char* del = str;
-    do {
-        while (*del == ' ') {
-            del++;
+    while (*sta) {
+        if (ispunct((unsigned char)*sta)) {         // removing punctuation
+            sta++;
         }
-    } while (*str++ = *del++);
-}
-
-// Converts a string input to lowercase
-void convertToLowercase(char *str) {
-    while (*str != '\0') {
-        *str = tolower(*str);
-        ++str;
+        else if (isblank((unsigned char)*sta)) {    // removing spaces
+            sta++;
+        }
+        else if (isupper((unsigned char)*sta)) {    // converting to lowercase
+            *res++ = tolower((unsigned char)*sta);
+            sta++;
+        }
+        else if (sta == res) {
+            sta++;
+            res++;
+        }
+        else {
+            *res++ = *sta++;
+        }
     }
+    *res = 0;
 }
 
 // Returns the size of a string
